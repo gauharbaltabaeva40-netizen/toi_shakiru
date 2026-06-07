@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Әли & Айгерім — Үйлену тойы | 15 Тамыз 2026</title>
+    <!-- Google Fonts & Canvas Confetti CDN (сюрприз үшін) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fefaf5;
+            color: #2c2418;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        /* Glassmorphism / Gold Theme */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(14px);
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1), 0 0 0 1px rgba(201, 160, 61, 0.2);
+            border: 1px solid rgba(201, 160, 61, 0.3);
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #e6c27a 0%, #c9a03d 100%);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #b8860b;
+            position: relative;
+            display: inline-block;
+            width: auto;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: #c9a03d;
+            margin: 0.5rem auto 0;
+            border-radius: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        /* Floating hearts (сюрприз атмосферасы) */
+        .floating-heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 1.5rem;
+            pointer-events: none;
+            z-index: 999;
+            opacity: 0;
+            animation: floatUp 6s linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.8;
+                bottom: -20px;
+            }
+            80% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-110vh) rotate(25deg);
+                opacity: 0;
+                bottom: 110%;
+            }
+        }
+
+        /* Cover Screen */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(125deg, #fff9f0 0%, #fdebd0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-content {
+            max-width: 850px;
+            padding: 2rem;
+            z-index: 2;
+        }
+
+        .cover h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.8rem;
+            letter-spacing: 2px;
+            color: #b45f1b;
+            text-shadow: 2px 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .cover-date {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            color: #8b6946;
+            font-weight: 500;
+        }
+
+        .invite-btn {
+            background: #c9a03d;
+            border: none;
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 18px rgba(201,160,61,0.3);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .invite-btn:hover {
+            background: #b3862c;
+            transform: scale(1.03);
+            box-shadow: 0 12px 22px rgba(0,0,0,0.15);
+        }
+
+        /* Romantic story */
+        .story-card {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+            background: white;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.08);
+        }
+
+        .story-img {
+            flex: 1;
+            min-width: 250px;
+            background: #f7e9dd;
+            height: 320px;
+            background-image: url('https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=800');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .story-text {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .story-text h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #b8860b;
+        }
+
+        /* countdown */
+        .countdown-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .timer-block {
+            background: rgba(255,255,245,0.9);
+            backdrop-filter: blur(8px);
+            padding: 1rem 1.2rem;
+            border-radius: 1.5rem;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(201,160,61,0.4);
+        }
+
+        .timer-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            font-family: 'Playfair Display', serif;
+            color: #b8860b;
+        }
+
+        /* event info */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 1.5rem;
+            text-align: center;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+        }
+
+        /* map */
+        .map-container {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+        }
+
+        /* Gallery Slider */
+        .slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 2rem;
+            overflow: hidden;
+            box-shadow: 0 20px 28px -8px rgba(0,0,0,0.2);
+        }
+
+        .slider-img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .slider-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,240,0.8);
+            border: none;
+            font-size: 2rem;
+            padding: 0.3rem 1rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            backdrop-filter: blur(4px);
+            font-weight: bold;
+            color: #b8860b;
+        }
+
+        .prev-btn { left: 12px; }
+        .next-btn { right: 12px; }
+
+        /* RSVP Form */
+        .rsvp-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,245,0.9);
+            backdrop-filter: blur(8px);
+            padding: 2rem;
+            border-radius: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 1rem;
+            border-radius: 2rem;
+            border: 1px solid #e2cfb3;
+            font-size: 1rem;
+            background: white;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 0.9rem 1.8rem;
+            font-weight: bold;
+            border-radius: 3rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+
+        /* Gift */
+        .gift-card {
+            background: linear-gradient(145deg, #fff3e6, #fff9f2);
+            text-align: center;
+            padding: 2rem;
+            border-radius: 2rem;
+        }
+
+        /* footer */
+        .footer {
+            background: #2c2418;
+            color: #f1e1c0;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* surprise button */
+        .surprise-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #c9a03d;
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            transition: 0.2s;
+            color: white;
+        }
+
+        .surprise-btn:hover {
+            transform: scale(1.1);
+            background: #b8860b;
+        }
+
+        @media (max-width: 680px) {
+            .cover h1 { font-size: 2.5rem; }
+            .timer-number { font-size: 1.8rem; }
+            .slider-img { height: 300px; }
+            .section-title { font-size: 1.8rem; }
+        }
+
+        /* smooth */
+        button, .invite-btn, .whatsapp-btn { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<!-- Floating Hearts Generator (сюрприз атмосферасы) -->
+<div id="heartContainer"></div>
+
+<!-- SURPRISE BUTTON (confetti + жүректер жаңбыры) -->
+<button class="surprise-btn" id="surpriseTrigger">🎁</button>
+
+<!-- COVER SCREEN -->
+<section class="cover" id="cover">
+    <div class="cover-content">
+        <h1>Әли ❤️ Айгерім</h1>
+        <div class="cover-date">15 Тамыз 2026</div>
+        <p style="font-size: 1.2rem; margin-top: 0.5rem;">"Қуанышымыздың куәсі болуға шақырамыз"</p>
+        <button class="invite-btn" id="openInvitation">✨ Шақыруды ашу ✨</button>
+    </div>
+</section>
+
+<!-- MAIN CONTENT (басқа блоктар) -->
+<main id="mainContent" style="display: none;">
+    <!-- 2. Romantic Story -->
+    <div class="container">
+        <div class="story-card">
+            <div class="story-img"></div>
+            <div class="story-text">
+                <h3>Біздің махаббат хикаямыз...</h3>
+                <p style="margin-top: 1rem; font-size: 1rem; color: #3d2c1c;">Біз бір-бірімізді алғаш рет 2024 жылдың көктемінде кездестірдік. Сол күннен бастап біздің жүрегіміз бірге соғады. Қуаныш, қиындық, күлкі және шексіз махаббат — бәрі осы жолда. Енді сол бақыттың куәгері болуға шақырамыз!</p>
+                <p style="margin-top: 1rem; font-style: italic;">"Махаббат — екі жанның бір ғашықтық толқыны"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. Countdown -->
+    <div class="container">
+        <div style="text-align: center;">
+            <h2 class="section-title">Тойға дейін</h2>
+        </div>
+        <div class="countdown-wrapper" id="countdownTimer">
+            <div class="timer-block"><div class="timer-number" id="days">00</div><div>Күн</div></div>
+            <div class="timer-block"><div class="timer-number" id="hours">00</div><div>Сағат</div></div>
+            <div class="timer-block"><div class="timer-number" id="minutes">00</div><div>Минут</div></div>
+            <div class="timer-block"><div class="timer-number" id="seconds">00</div><div>Секунд</div></div>
+        </div>
+    </div>
+
+    <!-- 4. Event Information -->
+    <div class="container">
+        <h2 class="section-title">Мереке туралы</h2>
+        <div class="info-grid">
+            <div class="info-item">📅 <strong>Күні</strong><br>15 Тамыз 2026</div>
+            <div class="info-item">🕒 <strong>Уақыты</strong><br>18:00</div>
+            <div class="info-item">📍 <strong>Мекенжай</strong><br>Шымкент қ., «Ай-ғасыр» салтанат сарайы</div>
+        </div>
+    </div>
+
+    <!-- 5. Interactive Map -->
+    <div class="container">
+        <h2 class="section-title">Орналасу картасы</h2>
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9662562589975!2d69.5956308!3d42.3177029!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38a91e0f1c9b6b8f%3A0x2b7c9e1ef9b2c0!2z0JHQsNC90LrQsCwg0KjRj9C90LrQtdC90YI!5e0!3m2!1sen!2skz!4v1712400000000!5m2!1sen!2skz" 
+                width="100%" height="380" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+        <p style="margin-top: 0.8rem; text-align: center;">📍 Шымкент қаласы, Ай-ғасыр сарайы (орталықтан 5 минут)</p>
+    </div>
+
+    <!-- 6. Photo Gallery Slider -->
+    <div class="container">
+        <h2 class="section-title">Біздің естеліктер</h2>
+        <div class="slider-container">
+            <img id="sliderImage" class="slider-img" src="https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Love story">
+            <button class="slider-btn prev-btn" id="prevSlide">‹</button>
+            <button class="slider-btn next-btn" id="nextSlide">›</button>
+        </div>
+        <p style="text-align:center; margin-top: 1rem;">❤️ Керемет сәттер галереясы ❤️</p>
+    </div>
+
+    <!-- 7+8. RSVP + WhatsApp Confirmation (біріктірілген) -->
+    <div class="container">
+        <h2 class="section-title">Қонақтарға</h2>
+        <div class="rsvp-form">
+            <div class="form-group">
+                <input type="text" id="guestName" placeholder="Аты-жөніңіз *" required>
+            </div>
+            <div class="form-group">
+                <input type="tel" id="guestPhone" placeholder="Телефон нөмірі *" required>
+            </div>
+            <div class="form-group">
+                <label>Қатысуыңыз:</label>
+                <div class="radio-group">
+                    <label><input type="radio" name="attendance" value="Келемін" checked> Келемін ✅</label>
+                    <label><input type="radio" name="attendance" value="Келе алмаймын"> Келе алмаймын ❌</label>
+                </div>
+            </div>
+            <div style="text-align: center; margin-top: 1.5rem;">
+                <button class="whatsapp-btn" id="whatsappConfirmBtn">📱 WhatsApp арқылы растау</button>
+            </div>
+            <p style="font-size:0.8rem; text-align:center; margin-top:1rem;">* Растау үшін батырманы басыңыз, WhatsApp хабарламасы ашылады</p>
+        </div>
+    </div>
+
+  
+   
+
+    <!-- 10. Footer -->
+    <footer class="footer">
+        <p>Әли ❤️ Айгерім | 15 Тамыз 2026 | Шымкент, Ай-ғасыр</p>
+        <p style="margin-top: 0.5rem; font-size:0.8rem;">Бізбен бірге болғаныңызға қуаныштымыз</p>
+        <p style="margin-top: 0.8rem;">✨ Махаббат пен бақыттың шақыруы ✨</p>
+    </footer>
+</main>
+
+<script>
+    // ---------------------------------------------------------------
+    // 1. COVER SCREEN -> төмен жылжу (скролл)
+    const openBtn = document.getElementById('openInvitation');
+    const mainContent = document.getElementById('mainContent');
+    const coverSection = document.getElementById('cover');
+
+    openBtn.addEventListener('click', () => {
+        // cover жоғалып, мазмұн көрінеді
+        coverSection.style.display = 'none';
+        mainContent.style.display = 'block';
+        // бірден таймер басталады, жүректер ағынын қосамыз
+        generateRandomHeart();
+        setInterval(generateRandomHeart, 3800);
+        // скроллды басынан жоғарылату
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ---------------------------------------------------------------
+    // COUNTDOWN (15 Тамыз 2026 18:00:00)
+    function updateCountdown() {
+        const targetDate = new Date(2026, 7, 15, 18, 0, 0); // Тамыз = 7 (0-бастап)
+        const now = new Date();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById('days').innerText = "00";
+            document.getElementById('hours').innerText = "00";
+            document.getElementById('minutes').innerText = "00";
+            document.getElementById('seconds').innerText = "00";
+            return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (86400000)) / (3600000));
+        const minutes = Math.floor((diff % 3600000) / 60000);
+        const seconds = Math.floor((diff % 60000) / 1000);
+
+        document.getElementById('days').innerText = days < 10 ? '0'+days : days;
+        document.getElementById('hours').innerText = hours < 10 ? '0'+hours : hours;
+        document.getElementById('minutes').innerText = minutes < 10 ? '0'+minutes : minutes;
+        document.getElementById('seconds').innerText = seconds < 10 ? '0'+seconds : seconds;
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // ---------------------------------------------------------------
+    // PHOTO GALLERY SLIDER (6 сурет)
+    const images = [
+        "https://images.pexels.com/photos/2253870/pexels-photo-2253870.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/2608512/pexels-photo-2608512.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/2937991/pexels-photo-2937991.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "https://images.pexels.com/photos/3768146/pexels-photo-3768146.jpeg?auto=compress&cs=tinysrgb&w=800"
+    ];
+    let currentIndex = 0;
+    const sliderImg = document.getElementById('sliderImage');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+
+    function updateSlider() {
+        sliderImg.src = images[currentIndex];
+    }
+    prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        updateSlider();
+    });
+    nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % images.length;
+        updateSlider();
+    });
+    updateSlider();
+
+    // ---------------------------------------------------------------
+    // RSVP + WhatsApp confirmation (номер шартты портфолио үшін)
+    const whatsappBtn = document.getElementById('whatsappConfirmBtn');
+    // Төмендегі телефон нөмірі - мысал ретінде, өз нөміріңізбен ауыстыруға болады.
+    const ORGANIZER_PHONE = "77771234567";  // Қазақстан нөмірі мысалы. Реальді емес, кезкелген нөмір.
+    // Бірақ портфолиода сіз өзіңіздің номеріңізді немесе демо-нөмір қалдырасыз.
+
+    whatsappBtn.addEventListener('click', () => {
+        const guestName = document.getElementById('guestName').value.trim();
+        const guestPhone = document.getElementById('guestPhone').value.trim();
+        const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+        let attendanceValue = "Келемін";
+        for (let radio of attendanceRadios) {
+            if (radio.checked) {
+                attendanceValue = radio.value;
+                break;
+            }
+        }
+
+        if (guestName === "" || guestPhone === "") {
+            alert("❗ Аты-жөніңіз бен телефон нөміріңізді толтырыңыз!");
+            return;
+        }
+
+        // Қалыптастырылған хабарлама:
+        const message = `🎉 растау 🎉%0A👤 Қонақ: ${guestName}%0A📞 Телефон: ${guestPhone}%0A✅ Статус: ${attendanceValue}%0A🥂 Әли & Айгерім тойына рахмет!`;
+        const whatsappUrl = `https://wa.me/${ORGANIZER_PHONE}?text=${message}`;
+        window.open(whatsappUrl, '_blank');
+    });
+
+    // ---------------------------------------------------------------
+    // СЮРПРИЗ: floating hearts + confetti
+    function generateRandomHeart() {
+        const heartContainer = document.getElementById('heartContainer');
+        const heart = document.createElement('div');
+        heart.classList.add('floating-heart');
+        heart.innerHTML = ['❤️', '💖', '💗', '💕', '✨', '🌸', '🌹'][Math.floor(Math.random() * 7)];
+        heart.style.left = Math.random() * 100 + '%';
+        heart.style.fontSize = (Math.random() * 1.5 + 1) + 'rem';
+        heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+        heart.style.opacity = Math.random() * 0.7 + 0.3;
+        heartContainer.appendChild(heart);
+        setTimeout(() => {
+            heart.remove();
+        }, 7000);
+    }
+
+    // Сюрприз батырмасы: конфеетти + жүректер жаңбырын бірден көп мөлшерде жаудыру
+    const surpriseTrigger = document.getElementById('surpriseTrigger');
+    surpriseTrigger.addEventListener('click', () => {
+        // CONFETTI эффектісі (canvas-confetti)
+        canvasConfetti({ particleCount: 150, spread: 100, origin: { y: 0.6 }, colors: ['#c9a03d', '#ffb347', '#ff6b6b'] });
+        canvasConfetti({ particleCount: 80, spread: 130, origin: { y: 0.4, x: 0.3 }, startVelocity: 15 });
+        canvasConfetti({ particleCount: 80, spread: 130, origin: { y: 0.5, x: 0.7 }, startVelocity: 15 });
+        // көп жүректер жаудыру
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => generateRandomHeart(), i * 40);
+        }
+        // Қосымша аудиосыз жарық эффект
+        alert("🎉 СЮРПРИЗ! Сізге шексіз махаббат пен бақыт тілейміз! 🥂");
+    });
+
+    // Егер cover ашылмаса да фонды жүректер автоматты түрде ағуы? Тек төмендегілерді cover ашылғанда іске қосамыз 
+    // Бірақ сюрприз кез келген уақытта жұмыс істейді. Сонымен қатар cover көрініп тұрса да жүректер жұмыс істемейді, тек mainContent ашылғанда ағын басталады. Ал сюрприз батырмасы әйтеуір confetti береді.
+    // Cover ашылмай тұрса да сюрпризді басуға болады (жүректер мен конфеетти), бірақ сайт жақсы. 
+    // Көрнекі түрде cover ашылғаннан кейін жиі жүректер қосылады.
+    // Оңтайландыру: егер cover жабылса, жүректер жүрсін.
+    let heartInterval;
+    openBtn.addEventListener('click', () => {
+        if (heartInterval) clearInterval(heartInterval);
+        heartInterval = setInterval(generateRandomHeart, 3700);
+        // бірнеше бастапқы жүректер
+        for(let i=0;i<12;i++) setTimeout(generateRandomHeart, i*200);
+    });
+
+    // Егер mainContent көрініп тұрса да жүректер бар
+    // Бастапқыда cover көрінеді, ешқандай жүрек ағыны жоқ (артық жүктемесіз)
+    // Сюрприз батырмасынан жүректер пайда болады.
+</script>
+
+<!-- Барлық бөлімдер толық, заманауи, портфолиоға лайық -->
+</body>
+</html>
